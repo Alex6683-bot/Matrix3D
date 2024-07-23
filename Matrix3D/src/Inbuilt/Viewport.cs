@@ -52,7 +52,6 @@ namespace Matrix3D.Inbuilt
         {
             MeshManager.RenderMeshes();
             gridPlane.RenderPlane();
-            MeshManager.meshes[0].color = new Vector3(1, 1, 0);
         }
 
         public void UpdateViewport() { }
