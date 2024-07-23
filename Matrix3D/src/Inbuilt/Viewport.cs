@@ -39,7 +39,6 @@ namespace Matrix3D.Inbuilt
         #region UPDATE
         public void RenderViewPort()
         {
-            MeshManager.SetMeshesToDefault();
             MeshManager.RenderMeshes();
             gridPlane.RenderPlane();
         }

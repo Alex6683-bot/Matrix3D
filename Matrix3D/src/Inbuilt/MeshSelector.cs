@@ -39,12 +39,13 @@ namespace Matrix3D.Inbuilt
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            for (int i = 0; i < MeshManager.meshes.Count; i++)
+            Mesh[] meshes = (Mesh[])(MeshManager.meshes.ToArray()).Clone();
+            for (int i = 0; i < meshes.Length; i++)
             {
-                MeshManager.meshes[i].lightingEnabled = false;
-                MeshManager.meshes[i].renderColor = ConvertIDToRGB(MeshManager.meshes[i].ID);
+                meshes[i].lightingEnabled = false;
+                meshes[i].renderColor = ConvertIDToRGB(MeshManager.meshes[i].ID);
+                meshes[i].RenderMesh(CameraController.currentCamera);
             }
-            MeshManager.RenderMeshes();
             selectionBuffer.Unbind();
         }
 
