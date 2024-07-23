@@ -14,7 +14,7 @@ namespace Matrix3D.Rendering
     {
         Cube
     }
-    class Mesh
+    class Mesh : ICloneable
     {
         public static Shader defaultMeshShader = new Shader(
                     @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Mesh\Shaders\meshShader.vert",
@@ -25,7 +25,6 @@ namespace Matrix3D.Rendering
         public Vector3 size = new Vector3(1, 1, 1);
         public Vector3 rotation = new Vector3(0, 0, 0);
         public Vector3 color = new Vector3(1, 1, 1);
-        public Vector3 renderColor;
         //Rendering
         VAO _vao; //this would be used for rendering each object
 
@@ -43,7 +42,6 @@ namespace Matrix3D.Rendering
             this.meshVertices = vertices;
             this.meshIndices = indices;
             this.meshShader = shader;
-            this.renderColor = color;
 
             InitializeMesh();
             ID = _vbo.ID;
@@ -54,7 +52,6 @@ namespace Matrix3D.Rendering
             this.meshVertices = vertices;
             this.meshIndices = indices;
             this.meshShader = defaultMeshShader;
-            this.renderColor = color;
 
             InitializeMesh();
             ID = _vbo.ID;
@@ -75,7 +72,7 @@ namespace Matrix3D.Rendering
             };
 
             this.meshShader = defaultMeshShader;
-
+            
             InitializeMesh();
             ID = _vbo.ID;
         }
@@ -106,7 +103,7 @@ namespace Matrix3D.Rendering
 
             meshShader.SetUniformMatrix4("modelMatrix", modelMatrix);
             meshShader.SetUniformMatrix4("normalMatrix", normalMatrix);
-            meshShader.SetUniformVector3("color", renderColor);
+            meshShader.SetUniformVector3("color", color);
             meshShader.SetUniformFloat("lightingEnabled", lightingEnabled ? 1 : 0);
         }
 
@@ -130,5 +127,19 @@ namespace Matrix3D.Rendering
             _ebo.UnBind();
         }
 
+        public object Clone()
+        {
+            Mesh clonedMesh = new Mesh(this.meshVertices, this.meshIndices, this.meshShader);
+            clonedMesh.position = this.position;
+            clonedMesh.size = this.size;
+            clonedMesh.rotation = this.rotation;
+            clonedMesh.color = this.color;
+            clonedMesh.ID = this.ID;
+            clonedMesh._vao = this._vao;
+            clonedMesh._vbo = this._vbo;
+            clonedMesh._ebo = this._ebo;
+
+            return clonedMesh;
+        }
     }
 }

@@ -86,8 +86,8 @@ namespace Matrix3D.Inbuilt
                 }
                 if (mouse.IsButtonDown(MouseButton.Right))
                 {
-                    center += right * mouse.Delta.X * panningSpeedFactor;
-                    center -= up * mouse.Delta.Y * panningSpeedFactor;
+                    center += right * mouse.Delta.X * panningSpeedFactor * radius / 10;
+                    center -= up * mouse.Delta.Y * panningSpeedFactor * radius / 10;
                 }
                 radius -= mouse.ScrollDelta.Y * zoomSpeedFactor;
             }

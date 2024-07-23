@@ -1,5 +1,6 @@
 ﻿using Matrix3D.GL_SetUp;
 using Matrix3D.Rendering;
+using Matrix3D.Utilities;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 
@@ -39,11 +40,11 @@ namespace Matrix3D.Inbuilt
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            Mesh[] meshes = (Mesh[])(MeshManager.meshes.ToArray()).Clone();
-            for (int i = 0; i < meshes.Length; i++)
+            List<Mesh> meshes = Extension.CloneList(MeshManager.meshes).ToList();
+            for (int i = 0; i < meshes.Count; i++)
             {
                 meshes[i].lightingEnabled = false;
-                meshes[i].renderColor = ConvertIDToRGB(MeshManager.meshes[i].ID);
+                meshes[i].color = ConvertIDToRGB(meshes[i].ID);
                 meshes[i].RenderMesh(CameraController.currentCamera);
             }
             selectionBuffer.Unbind();
