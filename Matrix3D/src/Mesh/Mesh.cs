@@ -16,15 +16,12 @@ namespace Matrix3D.Rendering
     }
     class Mesh : ICloneable
     {
-        public static Shader defaultMeshShader = new Shader(
-                    @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Mesh\Shaders\meshShader.vert",
-                    @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Mesh\Shaders\meshShader.frag"
-                                                                        );
+                                                  
         public bool lightingEnabled = true;
         public Vector3 position = new Vector3(0, 0, 0);
         public Vector3 size = new Vector3(1, 1, 1);
         public Vector3 rotation = new Vector3(0, 0, 0);
-        public Vector3 color = new Vector3(1, 1, 1);
+        public Vector3 color = new Vector3(0.8f, 0.8f, 0.8f);
         //Rendering
         VAO _vao; //this would be used for rendering each object
 
@@ -51,7 +48,7 @@ namespace Matrix3D.Rendering
         {
             this.meshVertices = vertices;
             this.meshIndices = indices;
-            this.meshShader = defaultMeshShader;
+            this.meshShader = ShaderStorage.defaultMeshShader;
 
             InitializeMesh();
             ID = _vbo.ID;
@@ -71,12 +68,30 @@ namespace Matrix3D.Rendering
                 _ => Cube.indices
             };
 
-            this.meshShader = defaultMeshShader;
+            this.meshShader = ShaderStorage.defaultMeshShader;
             
             InitializeMesh();
             ID = _vbo.ID;
         }
+        public Mesh(PrimitiveMeshType primitiveMesh, Shader shader)
+        {
+            this.meshVertices = primitiveMesh switch
+            {
+                PrimitiveMeshType.Cube => Cube.vertices,
+                _ => Cube.vertices
+            };
 
+            this.meshIndices = primitiveMesh switch
+            {
+                PrimitiveMeshType.Cube => Cube.indices,
+                _ => Cube.indices
+            };
+
+            this.meshShader = shader;
+
+            InitializeMesh();
+            ID = _vbo.ID;
+        }
         public void RenderMesh(Camera camera)
         {
             meshShader.RunShader();

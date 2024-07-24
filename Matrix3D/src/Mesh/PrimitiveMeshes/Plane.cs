@@ -1,7 +1,7 @@
 ﻿using Matrix3D.Structures;
 using OpenTK.Mathematics;
 
-namespace Matrix3D.src.Mesh.PrimitiveMeshes
+namespace Matrix3D.Rendering
 {
     static class Plane
     {
@@ -19,18 +19,40 @@ namespace Matrix3D.src.Mesh.PrimitiveMeshes
             2, 3, 0
         };
 
-        /*public static Vertex[] GeneratePlane(int width, int height, int resolution)
+        public static void GeneratePlane(int width, int height, int resolution, out Vertex[] vertices, out uint[] indices)
         {
-            Vertex[] vertices = new Vertex[width * height * resolution];
-
+            List<Vertex> verts = new List<Vertex>();
+            List<uint> inds = new List<uint>();
+            
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    int index = x * width + y;
-                    vertices[index] = new Vertex(x, 0, y, 0, 0);
+                    verts.Add(new Vertex(x - width / 2, 0, y - height / 2, x / width, y / height, 0, 1, 0));
+
+                    //INDICES
+                    if (x < width - 1 && y < height - 1)
+                    {
+                        //Triangle Bottom
+                        inds.Add((uint)Convert(x, y));
+                        inds.Add((uint)Convert(x + 1, y));
+                        inds.Add((uint)Convert(x + 1, y + 1));
+
+                        //Triangle Top
+                        inds.Add((uint)Convert(x + 1, y + 1));
+                        inds.Add((uint)Convert(x, y + 1));
+                        inds.Add((uint)Convert(x, y));
+                    }
+
                 }
             }
-        }*/
+            vertices = verts.ToArray();
+            indices = inds.ToArray();
+
+            int Convert(int x, int y) //converts 2d index to 1d
+            {
+                return y * height + x;
+            }
+        }
     }
 }

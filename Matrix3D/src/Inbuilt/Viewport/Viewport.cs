@@ -5,14 +5,14 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using Matrix3D.Inbuilt;
 using Matrix3D.Rendering;
 using Matrix3D.Structures;
+using Matrix3D.src.Inbuilt;
 
 namespace Matrix3D.Inbuilt
 {
     class Viewport
     {
-        MeshSelector meshSelector;
-
         #region INITIALIZATION
+        ViewportInputHandler input;
         public Viewport()
         {
             /*Mesh mesh = new Mesh(PrimitiveMeshType.Cube);
@@ -20,7 +20,7 @@ namespace Matrix3D.Inbuilt
             mesh.rotation = new Vector3(0, 40, 0);
             MeshManager.meshes.Add(mesh);*/
 
-            for (int y = 0; y < 10; y++)
+            /*for (int y = 0; y < 10; y++)
             {
                 for (int x = 0; x < 10; x++)
                 {
@@ -30,8 +30,14 @@ namespace Matrix3D.Inbuilt
                     mesh.color = new Vector3((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
                     MeshManager.meshes.Add(mesh);
                 }
-            }
-
+            }*/
+            Plane.GeneratePlane(10, 10, 1, out Vertex[] vertices, out uint[] indices);
+            Mesh mesh = new Mesh(vertices, indices);
+            mesh.position = new Vector3(0, 0.1f, 0);
+            mesh.lightingEnabled = true;
+            //mesh.rotation = new Vector3(90, 0, 0);
+            MeshManager.meshes.Add(mesh);
+            //MeshManager.meshes.Add(new Mesh(PrimitiveMeshType.Cube));
             InitializeViewport();
         }
 
@@ -43,7 +49,7 @@ namespace Matrix3D.Inbuilt
             CameraController.currentCamera.center = MeshManager.meshes[0].position;
 
             gridPlane = new GridPlane();
-            meshSelector = new MeshSelector();
+            input = new ViewportInputHandler();
         }
         #endregion
 
@@ -54,20 +60,9 @@ namespace Matrix3D.Inbuilt
             gridPlane.RenderPlane();
         }
 
-        public void UpdateViewport() { }
-        #endregion
-
-        #region INPUT
-        public void Input(MouseState mouse, KeyboardState keyboard)
+        public void UpdateViewport(MouseState mouse, KeyboardState keyboard) 
         {
-            if (mouse.IsButtonReleased(MouseButton.Left)) SelectMeshOnViewPort(mouse.Position);
-            CameraController.currentCamera.Input(mouse, keyboard);
-        }
-
-        private void SelectMeshOnViewPort(Vector2 mousePos)
-        {
-            Mesh? selectedMesh = meshSelector.GetObjectOnSelection(mousePos);
-            if (selectedMesh != null) CameraController.currentCamera.TweenCamera(selectedMesh.position);
+            input.UpdateInput(mouse, keyboard);
         }
         #endregion
     }

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\Rendering\Shaders\" />
+    <Folder Include="src\Rendering\Shaders\ScreenQuad\" />
   </ItemGroup>
 
 </Project>

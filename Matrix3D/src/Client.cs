@@ -49,8 +49,7 @@ namespace Matrix3D.src
 
             base.OnUpdateFrame(e);
 
-            viewport.UpdateViewport();
-            viewport.Input(MouseState, KeyboardState);
+            viewport.UpdateViewport(MouseState, KeyboardState);
         }
 
     }

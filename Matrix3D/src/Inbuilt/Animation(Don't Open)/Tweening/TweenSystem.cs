@@ -6,6 +6,9 @@ namespace Matrix3D.Inbuilt
 {
     class TweenSystem
     {
+        //Dont use this, this code is trash and doesn't work... and im an idiot
+
+
         private TweenConfig _tweenConfig;
         private bool _isTweenRunning = false;
 

@@ -24,6 +24,6 @@ void main()
 		//FragColor = vec4(_normal, 1.0f);
 	}
 	else FragColor = vec4(color, 1.0f);
-	//FragColor = vec4(vec3(lightingEnabled), 1.0f);
+	//FragColor = vec4(_uvCoords, 0.0, 1.0f);
 
 }
