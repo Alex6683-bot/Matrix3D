@@ -24,11 +24,11 @@ namespace Matrix3D.Rendering
             List<Vertex> verts = new List<Vertex>();
             List<uint> inds = new List<uint>();
             
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < height * resolution; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < width * resolution; x++)
                 {
-                    verts.Add(new Vertex(x - width / 2, 0, y - height / 2, x / width, y / height, 0, 1, 0));
+                    verts.Add(new Vertex((x - width / 2) / resolution, 0, (y - height / 2) / resolution, x / width, y / height, 0, 1, 0));
 
                     //INDICES
                     if (x < width - 1 && y < height - 1)

@@ -15,8 +15,7 @@ namespace Matrix3D.Rendering
         Cube
     }
     class Mesh : ICloneable
-    {
-                                                  
+    {                                 
         public bool lightingEnabled = true;
         public Vector3 position = new Vector3(0, 0, 0);
         public Vector3 size = new Vector3(1, 1, 1);

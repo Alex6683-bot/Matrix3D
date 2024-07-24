@@ -33,6 +33,7 @@ namespace Matrix3D.Inbuilt
         public Vector2 rotationSpeedFactor = new Vector2(0.2f, 0.2f);
         public float zoomSpeedFactor = 1;
         public float panningSpeedFactor = 0.01f;
+        public float minRadius = 1;
         public Camera(Vector3 _center)
         {
             UpdateCamera();
@@ -48,6 +49,7 @@ namespace Matrix3D.Inbuilt
 
             OrbitAroundTarget();
             front = center - position;
+            radius = Math.Clamp(radius, minRadius, float.PositiveInfinity);
 
             CalculateLocalCameraAxes();
         }

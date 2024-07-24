@@ -23,14 +23,11 @@ namespace Matrix3D.Rendering
         };
 
         Mesh quad;
-        Shader shader = new Shader(
-                                @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Rendering\Shaders\screenQuad.vert",
-                                @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Rendering\Shaders\screenQuad.frag"
-                                            );
+                                          
         Texture texture;
         public Screen_Quad()
         {
-            quad = new Mesh(vertices, indices, shader);
+            quad = new Mesh(vertices, indices, ShaderStorage.screenQuadShader);
         }
 
         public void Render()

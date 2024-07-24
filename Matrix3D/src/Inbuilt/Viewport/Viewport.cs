@@ -15,26 +15,11 @@ namespace Matrix3D.Inbuilt
         ViewportInputHandler input;
         public Viewport()
         {
-            /*Mesh mesh = new Mesh(PrimitiveMeshType.Cube);
-            mesh.position = new Vector3(1, 0, 0);
-            mesh.rotation = new Vector3(0, 40, 0);
-            MeshManager.meshes.Add(mesh);*/
-
-            /*for (int y = 0; y < 10; y++)
-            {
-                for (int x = 0; x < 10; x++)
-                {
-                    Random rand = new Random();
-                    Mesh mesh = new Mesh(PrimitiveMeshType.Cube);
-                    mesh.position = new Vector3(x * 2, 0, y * 2);
-                    mesh.color = new Vector3((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble());
-                    MeshManager.meshes.Add(mesh);
-                }
-            }*/
-            Plane.GeneratePlane(10, 10, 1, out Vertex[] vertices, out uint[] indices);
-            Mesh mesh = new Mesh(vertices, indices);
-            mesh.position = new Vector3(0, 0.1f, 0);
+            Plane.GeneratePlane(100, 100, 1, out Vertex[] vertices, out uint[] indices);
+            Mesh mesh = new Mesh(vertices, indices, ShaderStorage.planeShader);
+            mesh.position = new Vector3(0, 10, 0);
             mesh.lightingEnabled = true;
+            mesh.size = new Vector3(0.1f, 1, 0.1f);
             //mesh.rotation = new Vector3(90, 0, 0);
             MeshManager.meshes.Add(mesh);
             //MeshManager.meshes.Add(new Mesh(PrimitiveMeshType.Cube));
