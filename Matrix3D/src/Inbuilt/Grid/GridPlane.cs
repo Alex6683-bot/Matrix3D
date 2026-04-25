@@ -28,8 +28,7 @@ class GridPlane
     };
 
     Shader gridPlaneShader = new Shader(
-    @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Inbuilt\Grid\Shaders\gridPlane.vert",
-    @"C:\Users\Alexm\OneDrive\Desktop\Files\Coding\C#\TK\Matrix3D\Matrix3D\src\Inbuilt\Grid\Shaders\gridPlane.frag"
+"",""
     );
     Mesh plane;
 
